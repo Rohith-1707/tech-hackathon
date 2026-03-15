@@ -1,0 +1,110 @@
+import React from 'react';
+
+const features = [
+  {
+    title: "Smart Monitoring",
+    description: "Multi-sensor tracking of temperature, humidity, and VOC levels",
+    icon: "🛡️",
+  },
+  {
+    title: "AI Predictions",
+    description: "Edge AI analyzes data to predict spoilage risk and shelf life",
+    icon: "📈",
+  },
+  {
+    title: "Auto Actions",
+    description: "Automatic ventilation and cooling control based on conditions",
+    icon: "🔔",
+  },
+  {
+    title: "FEFO Recommendations",
+    description:
+      "Smart suggestions for First Expired First Out inventory",
+    icon: "🍃",
+  },
+];
+
+const SpoilGuardAI = () => {
+  return (
+    <div style={{ fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", padding: 20, background: "#f8f8f8", minHeight: "100vh" }}>
+      <header style={{ display: "flex", alignItems: "center", marginBottom: 40 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <span style={{ fontSize: 24, fontWeight: "bold", backgroundColor: "#375a34", borderRadius: 6, width: 32, height: 32, display: "flex", justifyContent: "center", alignItems: "center", color: "white" }}>
+            🌿
+          </span>
+          <h1 style={{ margin: 0 }}>Spoil Guard AI</h1>
+        </div>
+      </header>
+
+      <main style={{ textAlign: "center" }}>
+        <h2 style={{ fontSize: 36, marginBottom: 10, fontWeight: "bold" }}>Spoil Guard AI</h2>
+        <p style={{ fontSize: 18, marginBottom: 6 }}>
+          Protect Your Harvest with Intelligent Storage Monitoring
+        </p>
+        <p style={{ fontSize: 14, color: "#666", marginBottom: 20 }}>
+          AI-powered IoT solution for real-time crop spoilage prediction and prevention
+        </p>
+        <button
+          style={{
+            backgroundColor: "#375a34",
+            color: "white",
+            padding: "12px 24px",
+            borderRadius: 8,
+            border: "none",
+            cursor: "pointer",
+            fontSize: 16,
+          }}
+        >
+          Go to Dashboard
+        </button>
+
+        <section
+          style={{
+            marginTop: 50,
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: 20,
+          }}
+        >
+          {features.map(({ title, description, icon }, index) => (
+            <div
+              key={index}
+              style={{
+                backgroundColor: "white",
+                padding: 20,
+                borderRadius: 10,
+                boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+                textAlign: "left",
+              }}
+            >
+              <span
+                style={{
+                  display: "inline-block",
+                  backgroundColor: "#f1f5f4",
+                  borderRadius: 8,
+                  padding: 8,
+                  fontSize: 20,
+                  marginBottom: 12,
+                }}
+                role="img"
+                aria-label={`${title} icon`}
+              >
+                {icon}
+              </span>
+              <h3 style={{ margin: "12px 0 8px", fontWeight: "bold" }}>{title}</h3>
+              <p style={{ margin: 0, fontSize: 14, lineHeight: "1.4", color: "#444" }}>
+                {description}
+              </p>
+            </div>
+          ))}
+        </section>
+      </main>
+
+      <footer style={{ marginTop: 50, textAlign: "right", fontSize: 12, color: "#999" }}>
+        Made with <span role="img" aria-label="leaf">🍃</span> Emergent
+      </footer>
+    </div>
+  );
+};
+
+export default SpoilGuardAI;
