@@ -1,0 +1,93 @@
+import React from 'react';
+import { AlertTriangle, Box, LayoutDashboard, Bell, Globe } from 'lucide-react';
+
+const AlertsPage = () => {
+  const alerts = [
+    { id: 'U', message: 'LOW RISK: Conditions normal', riskScore: 19, shelfLife: '27d', time: '10:08:17 PM', status: 'Active' },
+    { id: 'Storage D', message: 'LOW RISK: Conditions normal', riskScore: 0, shelfLife: '30d', time: '10:08:17 PM', status: 'Active' },
+    { id: 'Storage C', message: 'LOW RISK: Conditions normal', riskScore: 2, shelfLife: '30d', time: '10:08:17 PM', status: 'Active' },
+  ];
+
+  return (
+    <div className="bg-[#fcfdfc] min-h-screen p-8 font-sans text-slate-700">
+      {/* Header */}
+      <header className="flex justify-between items-center mb-8 border-b border-slate-100 pb-4">
+        <div className="flex items-center gap-3">
+          <div className="bg-[#2d5a27] p-1.5 rounded-md">
+            <Box className="text-white" size={20} />
+          </div>
+          <h1 className="text-xl font-bold text-slate-800">Alerts & Notifications</h1>
+        </div>
+        <button className="flex items-center gap-1 text-slate-400 text-sm">
+          <Globe size={16} /> English
+        </button>
+      </header>
+
+      {/* Alerts List */}
+      <div className="space-y-4 max-w-6xl mx-auto">
+        {alerts.map((alert, index) => (
+          <div key={index} className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm flex items-center relative overflow-hidden">
+            {/* Left Icon & Title Section */}
+            <div className="flex gap-4 items-start w-1/3">
+              <div className="mt-1 text-slate-400">
+                <AlertTriangle size={20} />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-slate-800">{alert.id}</h3>
+                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-tight">
+                  {alert.message}
+                </p>
+                <div className="mt-4">
+                  <p className="text-[10px] text-slate-400 font-bold uppercase">Risk Score</p>
+                  <p className="text-2xl font-bold text-slate-800">{alert.riskScore}%</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Middle Stats Section */}
+            <div className="flex flex-1 justify-around items-end pb-1">
+              <div className="text-center">
+                <p className="text-[10px] text-slate-400 font-bold uppercase">Shelf Life</p>
+                <p className="text-lg font-bold text-slate-700">{alert.shelfLife}</p>
+              </div>
+              <div className="text-center">
+                <p className="text-[10px] text-slate-400 font-bold uppercase">Alert Time</p>
+                <p className="text-xs font-medium text-slate-600">{alert.time}</p>
+              </div>
+              <div className="text-center">
+                <p className="text-[10px] text-slate-400 font-bold uppercase">Status</p>
+                <p className="text-xs font-bold text-slate-700">{alert.status}</p>
+              </div>
+            </div>
+
+            {/* Right Side Badge */}
+            <div className="absolute top-4 right-6">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Low</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Floating Bottom Navigation */}
+      <nav className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-white border border-slate-200 px-10 py-3 rounded-full shadow-xl flex gap-16 items-center">
+        <NavItem icon={<LayoutDashboard size={20}/>} label="Home" />
+        <NavItem icon={<Box size={20}/>} label="Dashboard" />
+        <NavItem icon={<Box size={20}/>} label="Storage" />
+        <NavItem icon={<Bell size={20}/>} label="Alerts" active />
+      </nav>
+    </div>
+  );
+};
+
+const NavItem = ({ icon, label, active }) => (
+  <div className={`flex flex-col items-center gap-1 cursor-pointer transition-all ${active ? 'scale-110' : 'text-slate-400'}`}>
+    <div className={`${active ? 'bg-orange-400 text-white p-2 rounded-xl shadow-md' : ''}`}>
+      {icon}
+    </div>
+    <span className={`text-[10px] uppercase font-bold tracking-tighter ${active ? 'text-orange-500' : ''}`}>
+      {label}
+    </span>
+  </div>
+);
+
+export default AlertsPage;
