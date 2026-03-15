@@ -1,0 +1,108 @@
+import React from 'react';
+import { Plus, Box, LayoutDashboard, Bell, Search, Globe } from 'lucide-react';
+
+const StorageManagement = () => {
+  const storageData = [
+    { name: 'Storage A', wing: 'North Wing', crop: 'rice', capacity: 1000, current: 850 },
+    { name: 'Storage B', wing: 'South Wing', crop: 'wheat', capacity: 800, current: 600 },
+    { name: 'Storage A', wing: 'North Wing', crop: 'rice', capacity: 1000, current: 850 }, // Duplicate as per image
+    { name: 'Storage C', wing: 'East Wing', crop: 'potato', capacity: 500, current: 450 },
+    { name: 'Storage B', wing: 'South Wing', crop: 'wheat', capacity: 800, current: 600 },
+    { name: 'Storage D', wing: 'West Wing', crop: 'onion', capacity: 1200, current: 300 },
+  ];
+
+  return (
+    <div className="bg-[#f8fafc] min-h-screen p-8 font-sans text-slate-700">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-10">
+        <div className="flex items-center gap-3">
+          <div className="bg-[#2d5a27] p-2 rounded-lg">
+            <Box className="text-white" size={24} />
+          </div>
+          <h1 className="text-2xl font-bold text-slate-800 tracking-tight">Storage Management</h1>
+        </div>
+        
+        <div className="flex items-center gap-4">
+          <button className="flex items-center gap-2 bg-[#2d5a27] text-white px-5 py-2 rounded-lg font-semibold hover:bg-[#24481f] transition-colors shadow-sm">
+            <Plus size={18} />
+            Add Storage Unit
+          </button>
+          <button className="flex items-center gap-1 text-slate-500 bg-white border px-3 py-2 rounded-lg shadow-sm">
+            <Globe size={16} />
+            <span className="text-sm">English</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Grid Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {storageData.map((item, index) => (
+          <StorageCard key={index} data={item} />
+        ))}
+      </div>
+
+      {/* Floating Bottom Navigation */}
+      <nav className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-white border border-slate-200 px-10 py-3 rounded-full shadow-2xl flex gap-16 items-center">
+        <NavItem icon={<LayoutDashboard size={20}/>} label="Home" />
+        <NavItem icon={<Box size={20}/>} label="Dashboard" />
+        <NavItem icon={<Box size={20}/>} label="Storage" active />
+        <div className="relative">
+            <div className="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 rounded-full text-[10px] text-white flex items-center justify-center border-2 border-white">1</div>
+            <NavItem icon={<Bell size={20}/>} label="Alerts" highlighted />
+        </div>
+      </nav>
+    </div>
+  );
+};
+
+const StorageCard = ({ data }) => {
+  const utilization = Math.round((data.current / data.capacity) * 100);
+  
+  return (
+    <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+      <div className="mb-6">
+        <h3 className="text-xl font-bold text-slate-800">{data.name}</h3>
+        <p className="text-sm text-slate-400 font-medium">{data.wing}</p>
+      </div>
+
+      <div className="space-y-3 mb-8">
+        <DataRow label="Crop" value={data.crop} />
+        <DataRow label="Capacity" value={`${data.capacity} kg`} />
+        <DataRow label="Current" value={`${data.current} kg`} />
+      </div>
+
+      <div className="mt-4">
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Utilization</span>
+          <span className="text-sm font-bold text-slate-700">{utilization}%</span>
+        </div>
+        {/* Progress Bar Container */}
+        <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+          {/* Fill */}
+          <div 
+            className="h-full bg-slate-700 rounded-full transition-all duration-500" 
+            style={{ width: `${utilization}%` }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const DataRow = ({ label, value }) => (
+  <div className="flex justify-between items-center border-b border-slate-50 pb-2">
+    <span className="text-sm font-semibold text-slate-400">{label}:</span>
+    <span className="text-sm font-bold text-slate-700">{value}</span>
+  </div>
+);
+
+const NavItem = ({ icon, label, active, highlighted }) => (
+  <div className={`flex flex-col items-center gap-1 cursor-pointer transition-colors ${active ? 'text-slate-800 font-bold' : highlighted ? 'text-orange-500 font-bold' : 'text-slate-400'}`}>
+    <div className={highlighted ? 'bg-orange-100 p-2 rounded-xl' : ''}>
+        {icon}
+    </div>
+    <span className="text-[10px] uppercase font-bold tracking-tighter">{label}</span>
+  </div>
+);
+
+export default StorageManagement;
